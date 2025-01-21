@@ -51,9 +51,6 @@ public class TaskListMapperImpl implements TaskListMapper {
                             .map(taskMapper::toDto)
                             .toList()
                         ).orElse(null)
-
-
-
         );
         
     }
