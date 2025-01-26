@@ -3,6 +3,8 @@ package com.chrism.taskman.mappers.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import com.chrism.taskman.domain.dto.TaskListDto;
 import com.chrism.taskman.domain.entities.Task;
 import com.chrism.taskman.domain.entities.TaskList;
@@ -10,6 +12,7 @@ import com.chrism.taskman.domain.entities.TaskStatus;
 import com.chrism.taskman.mappers.TaskListMapper;
 import com.chrism.taskman.mappers.TaskMapper;
 
+@Component
 public class TaskListMapperImpl implements TaskListMapper {
 
     private final TaskMapper taskMapper;
