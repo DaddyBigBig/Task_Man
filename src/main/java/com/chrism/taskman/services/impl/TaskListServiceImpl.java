@@ -2,6 +2,8 @@ package com.chrism.taskman.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,11 @@ public class TaskListServiceImpl implements TaskListService {
             now,
             now
         ));
+    }
+
+    @Override
+    public Optional<TaskList> getTaskList(UUID id) {
+        return taskListRepository.findById(id);
     }
     
 }
