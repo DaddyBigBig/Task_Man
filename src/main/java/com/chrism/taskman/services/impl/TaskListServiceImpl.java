@@ -2,6 +2,7 @@ package com.chrism.taskman.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -51,6 +52,33 @@ public class TaskListServiceImpl implements TaskListService {
     @Override
     public Optional<TaskList> getTaskList(UUID id) {
         return taskListRepository.findById(id);
+    }
+
+    @Override
+    public TaskList updateTaskList(UUID taskListId, TaskList taskList) {
+        
+        if (null == taskList.getId()) {
+            throw new IllegalArgumentException("Task List must have an ID");
+        }
+
+        if (!Objects.equals(taskListId, taskList.getId())) {
+            throw new IllegalArgumentException("Attempting to update ID, this is not allowed");
+        }
+
+        TaskList existingTaskList = taskListRepository.findById(taskListId)
+            .orElseThrow(() -> new IllegalArgumentException("Attempting to update a Task List that does not exist"));
+
+        existingTaskList.setTitle(taskList.getTitle());
+        existingTaskList.setDescription(taskList.getDescription());
+        existingTaskList.setUpdated(LocalDateTime.now());
+
+        return taskListRepository.save(existingTaskList);
+
+    }
+
+    @Override
+    public void deleteTask(UUID taskListId) {
+        taskListRepository.deleteById(taskListId);
     }
     
 }
