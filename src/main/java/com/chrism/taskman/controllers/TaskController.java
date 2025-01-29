@@ -1,6 +1,7 @@
 package com.chrism.taskman.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,13 +40,27 @@ public class TaskController {
     }
 
     @PostMapping
-    public TaskDto listTasks(@RequestBody TaskDto taskDto) {
+    public TaskDto createTask(
+        @PathVariable("task_list_id") UUID taskListId, 
+        @RequestBody TaskDto taskDto) {
 
         Task createdTask = taskService.createTask(
+            taskListId,
             taskMapper.fromDto(taskDto)
         );
 
         return taskMapper.toDto(createdTask);
+
+    }
+
+    @GetMapping
+    public Optional<TaskDto> getTask(
+        @PathVariable("task_list_id") UUID taskListId, 
+        @PathVariable("task_id") UUID taskId
+    ) {
+
+        return taskService.getTask(taskListId, taskId).map(taskMapper::toDto);
+
 
     }
 

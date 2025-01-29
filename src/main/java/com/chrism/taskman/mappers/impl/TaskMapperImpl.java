@@ -20,6 +20,7 @@ public class TaskMapperImpl implements TaskMapper {
             taskDto.status(),
             taskDto.priority(),
             null,
+            null,
             null
         );
 
